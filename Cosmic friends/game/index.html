@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Cosmic Friends</title>
+	<meta name="description" content="Cosmic Friends Start Page">
+  <meta name="author" content="Vladislav Lanskikh">
+	<link rel="icon" href="../favicon.ico">
+	
+	<script src="phaser.js"></script>
+	<script type="text/javascript" src="cosmicFriends.js"></script>
+	<style type="text/css">
+		@font-face {
+			font-family: 'Orbitron';
+			src: url(fonts/Orbitron/Orbitron-Regular.ttf);
+		}
+		p, h1 {
+			font-family: Orbitron;
+			color: white;
+		}
+		body {
+			background-color: black;
+			text-align: center;
+		}
+		canvas {
+			display: inline-block;
+		}
+		#game {
+			display: inline-block;
+		}
+		a {
+			color: white;
+			text-decoration: none;
+		}
+		a:hover {
+			color: #5a5a5a;
+		}
+	</style>
+	<script>
+        WebFontConfig = {
+            custom: {
+                families: ['Orbitron'],
+                testStrings: {
+                    'Orbitron': '\uE003\uE005'
+                }
+            }
+        };
+	</script>
+</head>
+<body>
+	<h1>
+		<a href="../index.html">
+	Cosmic friedns
+	</a>
+</h1>
+
+</body>
+<script type="text/javascript">
+	function canvasToCenter() {
+		var canvas = document.getElementsByTagName('canvas')[0];
+		canvas.style.display = 'inline-block';
+		canvas.style.border = '1px solid silver';
+	}
+	    setTimeout(function() {
+        canvasToCenter();
+    }, 50);
+	
+</script>
+</html>
