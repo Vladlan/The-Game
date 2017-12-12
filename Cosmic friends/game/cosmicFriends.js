@@ -10,21 +10,11 @@ function preload() {
     game.load.image('tiles-1', 'assets/tiles-1.png');
     game.load.image('background2', 'assets/level1.png');
 
-
-    // game.load.spritesheet('dude', 'assets/dude.png', 32, 48);
-    // game.load.spritesheet('dude2', 'assets/dude2.png', 24, 26);
-
     game.load.spritesheet('dude', 'assets/Player1.png', 30, 41);
     game.load.spritesheet('dude2', 'assets/Player2.png', 30, 41);
 
     game.load.image('grenades1', 'assets/enemy-bullet1.png');
     game.load.image('grenades2', 'assets/enemy-bullet2.png');
-
-    game.load.spritesheet('droid', 'assets/droid.png', 32, 32);
-    game.load.image('starSmall', 'assets/star.png');
-    game.load.image('starBig', 'assets/star2.png');
-
-    game.load.image('background', 'assets/background2.png');
 
     game.load.spritesheet('kaboom', 'assets/explode.png', 128, 128);
 };
