@@ -9,45 +9,34 @@ function preload() {
     game.load.tilemap('level1', 'assets/level1.json', null, Phaser.Tilemap.TILED_JSON);
     game.load.image('tiles-1', 'assets/tiles-1.png');
     game.load.image('background2', 'assets/level1.png');
-
     game.load.spritesheet('dude', 'assets/Player1.png', 30, 41);
     game.load.spritesheet('dude2', 'assets/Player2.png', 30, 41);
-
     game.load.image('grenades1', 'assets/enemy-bullet1.png');
     game.load.image('grenades2', 'assets/enemy-bullet2.png');
-
     game.load.spritesheet('kaboom', 'assets/explode.png', 128, 128);
 };
 
 let map;
-let tileset;
 let layer;
 let player1;
 let player2;
-let facingP1 = 'left';
-let facingP2 = 'left';
+let facingP1 = 'right';
+let facingP2 = 'right';
 
-let jumpTimer = 0;
 let cursors;
-let bg;
 let controls = {};
 let playerSpeed = 250;
 let jumpSpeed = 450;
-let k = 0;
 let scoreP1 = 0;
 let scoreStringP1;
 let scoreTextP1;
 let scoreP2 = 0;
 let scoreStringP2;
 let scoreTextP2;
-let grenades;
-let grenade1Time = 0;
 let grenadeSpeedP2 = 800;
 let grenadeSpeedP1 = 800;
 let grenadeSpeed = 800;
 let explosions;
-let clicks = 0;
-let stack = [];
 let worldScale = 1;
 let counter = 0;
 let stateText;
@@ -116,8 +105,8 @@ function create() {
 //show borders of layer in game
     // layer.debug = true;
 
-
     game.physics.arcade.gravity.y = 750;
+    console.log(this);
 
     //PLAYER1
     player1 = game.add.sprite(game.camera.width * Math.random(),
@@ -195,6 +184,7 @@ function create() {
         left: this.input.keyboard.addKey(Phaser.Keyboard.A),
         up: this.input.keyboard.addKey(Phaser.Keyboard.W),
         down: this.input.keyboard.addKey(Phaser.Keyboard.S),
+        enter: this.input.keyboard.addKey(Phaser.Keyboard.ENTER)
     };
 
     cursors = game.input.keyboard.createCursorKeys();
@@ -379,7 +369,7 @@ function collisionHandler(player1, grenade1) {
     let explosion = explosions.getFirstExists(false);
     explosion.reset(player1.body.x, player1.body.y);
     explosion.play('kaboom', 30, false, true);
-    player1.reset(game.camera.width * Math.random(), game.camera.height * Math.random());
+    player1.reset(game.world.bounds.width * Math.random(), game.world.bounds.height * Math.random());
 };
 
 function update() {
@@ -549,7 +539,7 @@ function update() {
     game.physics.arcade.overlap(grenades2, player1, collisionHandler, null, this);
     game.physics.arcade.overlap(grenades1, player2, collisionHandler, null, this);
 
-    //Whe players are close to each other on Y zoom camera in
+    //When players are close to each other on Y zoom camera in
     if ((Math.abs(player1.position.y - player2.position.y) <= game.camera.height * 0.33) &&
         (Math.abs(player1.position.x - player2.position.x) <= game.camera.width * 0.33)) {
         if (Math.floor(this.game.time.totalElapsedSeconds(), 1) % 3 === 0) {
@@ -566,18 +556,15 @@ function update() {
         timeText.text = 'Time: ' + (allottedTime - Math.floor(this.game.time.totalElapsedSeconds(), 1));
     }
     //the "click to restart"
-    if (game.input.keyboard.isDown(Phaser.Keyboard.ENTER) && !lockRestart) {
-        restart();
-        lockRestart = true;
-        stateText.visible = false;
-        // game.remove(stateText);
+    if (controls.enter.isDown && !lockRestart) {
+        location.reload();
     }
 
-    if (game.input.keyboard.isDown(Phaser.Keyboard.BACKSPACE)) {
-        stateText.position.x = stateText.position.x + 25;
-        stateText.world.x = stateText.world.x + 25;
-        // stateText.position.y = game.camera.view.y + game.camera.width*0.5;   
-    }
+    // if (game.input.keyboard.isDown(Phaser.Keyboard.BACKSPACE)) {
+    //     stateText.position.x = stateText.position.x + 25;
+    //     stateText.world.x = stateText.world.x + 25;
+    //     // stateText.position.y = game.camera.view.y + game.camera.width*0.5;   
+    // }
 
     //Pin scores to players
     scoreTextP1.x = Math.floor(player1.x + player1.width / 2 - 5);
@@ -650,32 +637,6 @@ function zoomOut() {
         timeText.fontSize = timeTextFontSize * (1 + ZOOM_DELTA);
     }
 }
-
-function zoomTo(x, y) {
-    zoom.setTo(x, y);
-    updateDimensions();
-}
-
-function restart() {
-    //  A new level starts
-    //revives the player
-    player1.revive();
-    player2.revive();
-    grenades1.revive();
-    grenades2.revive();
-    explosions.revive();
-    scoreP1 = 0;
-    scoreP2 = 0;
-    scoreTextP1.text = scoreP1;
-    scoreTextP2.text = scoreP2;
-
-    scoreTextP1.revive();
-    scoreTextP2.revive();
-    this.game.time.reset();
-
-    //hides the text
-    stateText.visible = false;
-};
 
 function killWhatNeed() {
     player1.kill();
