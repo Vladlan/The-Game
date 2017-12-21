@@ -542,9 +542,8 @@ function update() {
     //When players are close to each other on Y zoom camera in
     if ((Math.abs(player1.position.y - player2.position.y) <= game.camera.height * 0.33) &&
         (Math.abs(player1.position.x - player2.position.x) <= game.camera.width * 0.33)) {
-        if (Math.floor(this.game.time.totalElapsedSeconds(), 1) % 3 === 0) {
-        }
         zoomIn();
+        timeText.fontSize = timeTextFontSize;
     }
 
     if (Math.floor(this.game.time.totalElapsedSeconds(), 1) > allottedTime) {
@@ -634,7 +633,18 @@ function zoomOut() {
         zoomBy(-ZOOM_DELTA * 0.73, -ZOOM_DELTA);
         //zooming our state text:
         stateText.fontSize = stateTextFontSize * (1 + ZOOM_DELTA);
-        timeText.fontSize = timeTextFontSize * (1 + ZOOM_DELTA);
+        if (counter === 1) {
+            timeText.fontSize = 20;
+        }
+        else if (counter === 2) {
+            timeText.fontSize = 22;
+        }
+        else if (counter === 3) {
+            timeText.fontSize = 24;
+        }
+        // timeText.fontSize = timeTextFontSize * (1 + ZOOM_DELTA*2.1);
+        console.log('zoomOut');
+        console.log(timeText.fontSize);
     }
 }
 
