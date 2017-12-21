@@ -65,17 +65,17 @@
 		
 		// to prevent resize of canvas when method zoomOut has been initialized
 		document.onfocus = function() {
-	    	var timerId = setInterval(function() {
-	    		if ( (canvas.style.width !== "800px") && (canvas.style.height = "600px") )
+	    	var timerId2 = setInterval(function() {
+	    		if ( (canvas.style.width !== "800px") && (canvas.style.height !== "600px") )
 	    		{
 	    			canvas.style.width = "800px";
 	    			canvas.style.height = "600px";
-	    			clearInterval(timerId);
+	    			clearInterval(timerId2);
 	    		}
-	    	}, 40);
+	    	}, 20);
 	    	setTimeout(function() {
-	    		clearInterval(timerId);
-	    	}, 1000);
+	    		clearInterval(timerId2);
+	    	}, 2000);
 	    }
 	}
 
