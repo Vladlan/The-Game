@@ -62,10 +62,26 @@
 		var canvas = document.getElementsByTagName('canvas')[0];
 		canvas.style.display = 'inline-block';
 		canvas.style.border = '1px solid silver';
+		
+		// to prevent resize of canvas when method zoomOut has been initialized
+		document.onfocus = function() {
+	    	var timerId = setInterval(function() {
+	    		if ( (canvas.style.width !== "800px") && (canvas.style.height = "600px") )
+	    		{
+	    			canvas.style.width = "800px";
+	    			canvas.style.height = "600px";
+	    			clearInterval(timerId);
+	    		}
+	    	}, 40);
+	    	setTimeout(function() {
+	    		clearInterval(timerId);
+	    	}, 1000);
+	    }
 	}
-	    setTimeout(function() {
-        canvasToCenter();
-    }, 50);
+
+	setTimeout(function() {
+		canvasToCenter();
+	}, 50);
 	
 </script>
 </html>
