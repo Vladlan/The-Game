@@ -1,1 +1,3 @@
-# The-Game12331
+# The-Game
+
+https://vladlan.github.io/The-Game/Cosmic%20friends
